@@ -9,7 +9,7 @@ from functools import wraps
 DATABASE = 'blog.db'
 USERNAME = 'admin'
 PASSWORD = 'admin'
-SECRET_Key = 'hard_to_guess'
+SECRET_KEY = 'hard_to_guess'
 
 app= Flask(__name__)
 
@@ -21,7 +21,7 @@ def connect_db():
 def login_required(test):
 	@wraps(test)
 	def wrap(*args, **kwargs):
-		if 'logged_in' in sessions:
+		if 'logged_in' in session:
 			return test (*args, **kwargs)
 		else:
 			flash('You need to login first.')
@@ -61,7 +61,7 @@ def logout():
 def add():
 	title = request.form['title']
 	post = request.form['post']
-	if not title or no post:
+	if not title or not post:
 		flask("All fields are required. Please try again.")
 		return redirect(url_for('main'))
 	else:
